@@ -1,6 +1,6 @@
 podTemplate(containers: [
     containerTemplate(name: 'angular', image: 'pivotalpa/angular-cli:latest', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'gradle', image: 'gradle:jre8-alpine', ttyEnabled: true, command: 'cat')
+    containerTemplate(name: 'gradle', image: 'gradle:jdk8-alpine', ttyEnabled: true, command: 'cat')
   ]) {
 
     node(POD_LABEL) {

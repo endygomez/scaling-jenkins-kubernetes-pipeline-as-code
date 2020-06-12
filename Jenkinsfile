@@ -9,7 +9,7 @@ podTemplate(containers: [
             container('gradle') {
                 stage('Build a Gradle project') {
                     sh """
-                        gradle build -x test
+                        gradle --help
                     """
                 }
             }

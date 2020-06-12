@@ -4,6 +4,18 @@ podTemplate(containers: [
   ]) {
 
     node(POD_LABEL) {
+        stage('Get a Maven project') {
+            git url: 'https://github.com/victor-tns/lazy-load-backend.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh """
+                        ls -lh
+                        chmod +x gradlew
+                        ./gradlew build -x test
+                    """
+                }
+            }
+        }
         stage('Get a Npm project') {
             git 'https://github.com/victor-tns/lazy-load-front.git'
             container('angular') {
@@ -11,19 +23,7 @@ podTemplate(containers: [
                     sh 'npm install'
                 }
             }
-        }
-
-        stage('Get a Golang project') {
-            git url: 'https://github.com/victor-tns/lazy-load-backend.git'
-            container('maven') {
-                stage('Build a Maven project') {
-                    sh """
-                        chmod +x gradlew
-                        gradlew build -x test
-                    """
-                }
-            }
-        }
+        }    
 
     }
 }

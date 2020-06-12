@@ -17,7 +17,10 @@ podTemplate(containers: [
             git url: 'https://github.com/victor-tns/lazy-load-backend.git'
             container('maven') {
                 stage('Build a Maven project') {
-                    sh "gradlew build -x test"
+                    sh """
+                        chmod +x gradlew
+                        gradlew build -x test
+                    """
                 }
             }
         }

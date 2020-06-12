@@ -8,7 +8,7 @@ podTemplate(containers: [
             git 'https://github.com/sahat/hackathon-starter.git'
             container('node') {
                 stage('Build a Npm project') {
-                    sh 'npm ci'
+                    sh 'npm install'
                 }
             }
         }

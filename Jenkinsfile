@@ -1,6 +1,6 @@
 podTemplate(containers: [
     containerTemplate(name: 'angular', image: 'pivotalpa/angular-cli:latest', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'golang', image: 'golang:1.8.0', ttyEnabled: true, command: 'cat')
+    containerTemplate(name: 'maven', image: 'golang:1.8.0', ttyEnabled: true, command: 'cat')
   ]) {
 
     node(POD_LABEL) {
@@ -14,14 +14,10 @@ podTemplate(containers: [
         }
 
         stage('Get a Golang project') {
-            git url: 'https://github.com/hashicorp/terraform.git'
-            container('golang') {
-                stage('Build a Go project') {
-                    sh """
-                    mkdir -p /go/src/github.com/hashicorp
-                    ln -s `pwd` /go/src/github.com/hashicorp/terraform
-                    cd /go/src/github.com/hashicorp/terraform && make core-dev
-                    """
+            git url: 'https://github.com/victor-tns/lazy-load-backend.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh "gradlew build -x test"
                 }
             }
         }
